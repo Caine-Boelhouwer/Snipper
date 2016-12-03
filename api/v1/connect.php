@@ -1,6 +1,6 @@
 <?php
 // Make connection with db
-$mysqli = new mysqli("localhost", "zodasmooi_caine", "pl06play", "zodasmooi_caine");
+$mysqli = new mysqli("*", "*", "*", "*");
 
 // Checking connection errors
 if ($mysqli->connect_errno) {
