@@ -1,0 +1,86 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10">
+			<h1>Voeg een snippet toe</h1>
+		</div>
+		<div class="col-sm-2">
+			<a href="#/" class="btn btn-danger pull-right button-back">Terug</a>
+		</div>
+	</div>
+	<hr>
+	<div class="snippet-form">
+		<div class="row snippet-form-row">
+    		<div class="col-sm-4">
+    			<div class="input-group">
+    				<span class="input-group-addon">Titel</span>
+    				<input 
+	    				type="text" 
+	    				placeholder="Titel van de code" 
+	    				class="form-control"
+	    				ng-model="addSnippet.title" required>
+    			</div>
+    		</div>
+
+    		<div class="col-sm-4">
+    			<div class="input-group">
+    				<span class="input-group-addon">Taal</span>
+    				<select 
+	    				type="select" 
+	    				name="language" 
+	    				id="language" 
+	    				class="form-control"
+	    				ng-model="addSnippet.language">
+		    				<option value="php">php</option>
+		    				<option value="javascript">javascript</option>
+		    				<option value="python">python</option>
+		    				<option value="html">html</option>
+		    				<option value="css">css</option>
+		    				<option value="overige">overige</option>
+    				</select>
+    			</div>
+    		</div>
+
+    		<div class="col-sm-4">
+    			<div class="input-group">
+    				<span class="input-group-addon">Versie</span>
+    				<input 
+	    				type="text" 
+	    				placeholder="Versie van de taal" 
+	    				class="form-control"
+	    				ng-model="addSnippet.version">
+    			</div>
+    		</div>
+    	</div>
+
+    	<div class="row snippet-form-row">
+			<div class="col-sm-12">
+	    		<div class="input-group">
+	    			<span class="input-group-addon">Code</span>
+	    			<textarea 
+		    			type="text" 
+		    			placeholder="Plaat je snippet code" 
+		    			class="form-control"
+		    			ng-model="addSnippet.code" required>
+	    			</textarea>
+	    		</div>
+			</div>
+    	</div>
+		
+		<div ng-show="addSnippet.title.length > 0 && addSnippet.code.length > 0">
+			<button 
+				class="btn btn-success snippet-button"
+				ng-click="createSnippet(addSnippet)">
+					<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Opslaan
+			</button>
+		</div>
+
+		<div ng-show="!addSnippet.title.length > 0 || !addSnippet.code.length > 0">
+			<button 
+				class="btn btn-success snippet-button"
+				disabled="disabled">
+					<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Opslaan
+			</button>
+		</div>
+	</div>
+</div>
+

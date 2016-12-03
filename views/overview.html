@@ -1,0 +1,191 @@
+<div class="container">
+	<div class="col-sm-12 price-form">
+		<div class="row price-form-row">      
+			<div class="col-sm-10">
+    			<div class="input-group">
+    				<span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+    				<input 
+	    				type="text" 
+	    				placeholder="Zoek code snippet" 
+	    				class="form-control"
+	    				value="" 
+	    				ng-model="searchBar">
+    			</div>
+			</div>
+
+			<div class="col-sm-2 text-right">
+			    <a href="#/add" class="btn btn-primary">Toevoegen</a>
+
+			    <button 
+			    	class="btn btn-danger" 
+			    	ng-click="addSnippet = !addSnippet" 
+			    	ng-show="addSnippet">Sluiten
+			    </button>      
+			</div>
+		</div>
+
+	    <div class="snippet-form" ng-if="addSnippet">
+
+	    	<h3>Voeg een code snippet toe</h3>
+
+	    	<div class="row snippet-form-row">
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Titel</span>
+	    				<input 
+		    				type="text" 
+		    				placeholder="Titel van de code" 
+		    				class="form-control"
+		    				ng-model="newSnippet.title" required>
+	    			</div>
+	    		</div>
+
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Taal</span>
+	    				<select 
+		    				type="select" 
+		    				name="language" 
+		    				id="language" 
+		    				class="form-control" 
+		    				ng-model="newSnippet.language">
+			    				<option value="php">PHP</option>
+			    				<option value="javascript">javascript</option>
+			    				<option value="python">python</option>
+			    				<option value="html">HTML</option>
+			    				<option value="css">CSS</option>
+	    				</select>
+	    			</div>
+	    		</div>
+
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Versie</span>
+	    				<input 
+		    				type="text" 
+		    				placeholder="Versie van de taal" 
+		    				class="form-control"
+		    				ng-model="newSnippet.version">
+	    			</div>
+	    		</div>
+	    	</div>
+
+	    	<div class="row snippet-form-row">
+				<div class="col-sm-12">
+		    		<div class="input-group">
+		    			<span class="input-group-addon">Code</span>
+		    			<textarea 
+			    			type="text" 
+			    			placeholder="Plaat je snippet code" 
+			    			class="form-control" 
+			    			ng-model="newSnippet.code" required>
+		    			</textarea>
+		    		</div>
+				</div>
+	    	</div>
+			
+			<div ng-show="newSnippet.title.length > 0 && newSnippet.code.length > 0">
+				<button 
+					class="btn btn-success snippet-button"
+					ng-click="createSnippet(newSnippet)"
+					ng-show="addSnippet">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Toevoegen
+				</button>
+			</div>
+		</div>
+
+		<div class="snippet-form" ng-if="editSnippet">
+
+	    	<h3>Bewerk een code snippet toe</h3>
+
+	    	<div class="row snippet-form-row">
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Titel</span>
+	    				<input 
+		    				type="text" 
+		    				placeholder="Titel van de code" 
+		    				class="form-control"
+		    				ng-model="existingSnippet.title" required>
+	    			</div>
+	    		</div>
+
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Taal</span>
+	    				<select 
+		    				type="select" 
+		    				name="language" 
+		    				id="language" 
+		    				class="form-control" 
+		    				ng-model="existingSnippet.language">
+			    				<option value="php">PHP</option>
+			    				<option value="javascript">javascript</option>
+			    				<option value="python">python</option>
+			    				<option value="html">HTML</option>
+			    				<option value="css">CSS</option>
+	    				</select>
+	    			</div>
+	    		</div>
+
+	    		<div class="col-sm-4">
+	    			<div class="input-group">
+	    				<span class="input-group-addon">Versie</span>
+	    				<input 
+		    				type="text" 
+		    				placeholder="Versie van de taal" 
+		    				class="form-control"
+		    				ng-model="existingSnippet.version">
+	    			</div>
+	    		</div>
+	    	</div>
+
+	    	<div class="row snippet-form-row">
+				<div class="col-sm-12">
+		    		<div class="input-group">
+		    			<span class="input-group-addon">Code</span>
+		    			<textarea 
+			    			type="text" 
+			    			placeholder="Plaat je snippet code" 
+			    			class="form-control" 
+			    			ng-model="existingSnippet.code" required>
+		    			</textarea>
+		    		</div>
+				</div>
+	    	</div>
+			
+			<button 
+				class="btn btn-success snippet-button"
+				ng-click="updateSnippetEdit()"
+				ng-show="editSnippet">
+					<span class="glyphicon glyphicon-save" aria-hidden="true"></span> Opslaan
+			</button>
+		</div>
+
+	</div>
+</div>
+
+<div class="container">
+	<div class="col-sm-4 snippet-wrapper" ng-repeat="snippet in filterSearchBar = (snippets | filter:searchBar)">
+		<div class="thumbnail">
+			<div class="caption">
+				<div>
+					<a href="#/detail/{{ snippet.id }}"><h3>{{ snippet.title }}</h3></a>
+					<h4>
+						<span class="label label-primary label-sm">{{ snippet.language }}</span>
+						<span class="label label-primary label-sm">{{ snippet.version }}</span>
+					</h4>
+					<a href="#/edit/{{ snippet.id }}" class="btn btn-sm btn-warning snippet-edit">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</a>
+					<button 
+						class="btn btn-sm btn-danger snippet-delete"
+						ng-click="deleteSnippet(snippet)">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</button>
+				</div> 
+			</div>
+		</div>
+	</div>
+	<div class="container text-center" ng-show="!filterSearchBar.length">Geen resultaten</div>
+</div>
