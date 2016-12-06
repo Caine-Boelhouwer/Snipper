@@ -20,7 +20,7 @@ while ($row = $result->fetch_assoc()) {
 		"title" => $row["title"],
 		"language" => $row["language"],
 		"version" => (double) $row["version"],
-		"code" => $row["code"],
+		"code" => html_entity_decode($row["code"], ENT_QUOTES),
 	];
 
 	array_push($snippets, $snippet);

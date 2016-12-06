@@ -1,11 +1,20 @@
-.price-form {
-	margin-bottom: 30px;
-	padding: 15px;
-	background-color: #f8f8f8;
+.navbar{
+	margin-bottom: 35px;
 }
 
-.price-form-row {
-	margin-bottom: 10px;
+.navbar-header{
+	width: 100%;
+}
+
+.navbar-header a{
+	width: 100%;
+}
+
+.search-form {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    margin-bottom: 40px;
+    padding: 15px;
 }
 
 .snippet-form-row, 
@@ -26,6 +35,10 @@
 
 .snippet-wrapper .thumbnail{
 	min-height: 100%;
+}
+
+.snippet-wrapper .thumbnail:hover{
+	background-color: #fcfcfc;
 }
 
 .snippet-wrapper h4{
@@ -55,11 +68,7 @@
 	margin: 30px 0 0 0;
 }
 
-.ng-toast.ng-toast--right .ng-toast__list{
-	margin-right: 30px;
-}
-
 .ng-toast.ng-toast--top, 
 .ng-toast.ng-toast--top .ng-toast__list{
-	top: 30px;
+	top: 50px;
 }

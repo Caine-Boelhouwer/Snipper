@@ -26,6 +26,8 @@ app.config(function ($routeProvider) {
 app.config(['ngToastProvider', function(ngToastProvider) {
     ngToastProvider
         .configure({
-            animation: 'fade'
+            animation: 'fade',
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
         });
 }]);
