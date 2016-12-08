@@ -1,6 +1,9 @@
 app.factory('EditService', function($http) {
+
+	// Set default post header
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	
+	// Post data to edit snippet
 	function postData(snippet) {
 		var request = $http({
 			method: "POST",

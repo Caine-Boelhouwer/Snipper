@@ -1,5 +1,6 @@
 var app = angular.module('snipper', ['ngRoute', 'ngToast', 'ngAnimate']);
 
+// Config for the routing
 app.config(function ($routeProvider) { 
     $routeProvider
         .when('/', {
@@ -23,6 +24,7 @@ app.config(function ($routeProvider) {
         });
 });
 
+// Config toast provider
 app.config(['ngToastProvider', function(ngToastProvider) {
     ngToastProvider
         .configure({
