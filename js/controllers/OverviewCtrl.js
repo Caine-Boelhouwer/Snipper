@@ -1,28 +1,34 @@
+import app from '../app';
+
 app.controller('OverviewCtrl', function($scope, OverviewService, DeleteService, ngToast) {
 	// Init vars
 	$scope.searchBar;
 	$scope.snippets;
 
+	// Event is completed
+	document.body.addEventListener('getDataOverview:completed', function(e) {
+		$scope.snippets = e.detail.data;
+	});
+
 	// Get all snippet data from overview service and put response in scope var
-   	OverviewService.getData()
-		.success(function(response) {
-	        $scope.snippets = response;
-	    }).error(function(error) {
-	        console.log(error);
-	    })
+	OverviewService.getData();
 
 	// Delete snippet function
 	$scope.deleteSnippet = function(snippet) {
-		// Execute postdata function with snippet as param to delete snippet
-		DeleteService.postData(snippet)
-			.then(function (response) {
-				console.log(response);
-				// Remove snippet from the overview list after delete is success
+
+		// Event completed
+		document.body.addEventListener('postDataDelete:completed', function(e) {
+			// When add is success; create toast and remove item from screen
+			if(e.detail.status == 200) {
 				var index = $scope.snippets.indexOf(snippet);
 				$scope.snippets.splice(index, 1);
-				ngToast.create('<strong>'+snippet.title+'</strong> is verwijderd.'); // Create toast
-			}, function (error) {
-				console.log(error);
-			});
+
+				ngToast.dismiss();
+				ngToast.create('<strong>'+snippet.title+'</strong> is verwijderd.');
+			}
+		});
+
+		// Execute postdata function with snippet as param to delete snippet
+		DeleteService.postData(snippet);
 	}
 });

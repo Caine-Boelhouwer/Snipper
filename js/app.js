@@ -1,4 +1,4 @@
-var app = angular.module('snipper', ['ngRoute', 'ngToast', 'ngAnimate']);
+const app = angular.module('snipper', ['ngRoute', 'ngToast', 'ngAnimate']);
 
 // Config for the routing
 app.config(function ($routeProvider) { 
@@ -33,3 +33,5 @@ app.config(['ngToastProvider', function(ngToastProvider) {
             verticalPosition: 'top'
         });
 }]);
+
+export default app;

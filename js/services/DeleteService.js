@@ -1,3 +1,5 @@
+import app from '../app';
+
 app.factory('DeleteService', function($http) {
 
 	// Set default post header
@@ -5,16 +7,20 @@ app.factory('DeleteService', function($http) {
 	
 	// Post data to delete snippet
 	function postData(snippet) {
-		var request = $http({
+		$http({
 			method: "POST",
 			url: "http://zodasmooi.nl/caine/api/snipper/v1/delete.php",
 			data: {
 				delete: true,
 				id: snippet.id
 			}
+		}).then(function successCallback(response) {
+			const event = new CustomEvent('postDataDelete:completed', { 'detail': response });
+			document.body.dispatchEvent(event);
+		}, function errorCallback(response) {
+			const event = new CustomEvent('postDataDelete:completed', { 'detail': response });
+			document.body.dispatchEvent(event);
 		});
-
-		return request;
 	}
 
 	return {

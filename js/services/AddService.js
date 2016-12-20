@@ -1,11 +1,13 @@
+import app from '../app';
+
 app.factory('AddService', function($http) {
 	
 	// Set default post header
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-	
+
 	// Post data to add snippet
 	function postData(snippet) {
-		var request = $http({
+		$http({
 			method: "POST",
 			url: "http://zodasmooi.nl/caine/api/snipper/v1/add.php",
 			data: {
@@ -15,9 +17,13 @@ app.factory('AddService', function($http) {
 				version: snippet.version,
 				code: snippet.code
 			}
+		}).then(function successCallback(response) {
+			const event = new CustomEvent('postDataAdd:completed', { 'detail': response });
+			document.body.dispatchEvent(event);
+		}, function errorCallback(response) {
+			const event = new CustomEvent('postDataAdd:completed', { 'detail': response });
+			document.body.dispatchEvent(event);
 		});
-
-		return request;
 	}
 
 	return {
